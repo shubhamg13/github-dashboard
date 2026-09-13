@@ -36,7 +36,10 @@ async function main() {
 
   const svg = renderCard({ totalContributions, repos, themeName });
 
-  const outPath = path.resolve(process.cwd(), output);
+  // Write into the workflow workspace (GITHUB_WORKSPACE) rather than relying on
+  // the current working directory, which differs between composite action steps.
+  const workspace = process.env.GITHUB_WORKSPACE || process.cwd();
+  const outPath = path.isAbsolute(output) ? output : path.resolve(workspace, output);
   await mkdir(path.dirname(outPath), { recursive: true });
   await writeFile(outPath, `${svg}\n`, "utf8");
 
