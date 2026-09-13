@@ -1,0 +1,46 @@
+name: "GitHub Dashboard"
+description: >-
+  Generate a self-hosted SVG dashboard card showing all-time public contributions
+  and a table of the repositories you contribute to most (with your PR and issue counts).
+author: "shubhamg13"
+branding:
+  icon: "bar-chart-2"
+  color: "blue"
+
+inputs:
+  username:
+    description: >-
+      GitHub username to generate the card for. Defaults to the repository owner.
+    required: false
+    default: ""
+  token:
+    description: >-
+      GitHub token used for API requests. Only public data is queried, so the default
+      GITHUB_TOKEN is sufficient.
+    required: false
+    default: ${{ github.token }}
+  output:
+    description: "Path to write the generated SVG (relative to the workspace)."
+    required: false
+    default: "card.svg"
+  count:
+    description: "Number of top repositories to list in the table."
+    required: false
+    default: "5"
+  theme:
+    description: "Card theme. One of: catppuccin, tokyo-night, github-dark."
+    required: false
+    default: "catppuccin"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Generate dashboard card
+      shell: bash
+      run: node "$GITHUB_ACTION_PATH/index.js"
+      env:
+        INPUT_USERNAME: ${{ inputs.username }}
+        INPUT_TOKEN: ${{ inputs.token }}
+        INPUT_OUTPUT: ${{ inputs.output }}
+        INPUT_COUNT: ${{ inputs.count }}
+        INPUT_THEME: ${{ inputs.theme }}
