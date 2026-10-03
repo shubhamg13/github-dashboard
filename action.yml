@@ -31,6 +31,10 @@ inputs:
     description: "Card theme. One of: catppuccin, tokyo-night, github-dark."
     required: false
     default: "catppuccin"
+  exclude_own:
+    description: "When true, exclude repositories owned by the given username from the table."
+    required: false
+    default: "false"
 
 runs:
   using: "composite"
@@ -44,3 +48,4 @@ runs:
         INPUT_OUTPUT: ${{ inputs.output }}
         INPUT_COUNT: ${{ inputs.count }}
         INPUT_THEME: ${{ inputs.theme }}
+        INPUT_EXCLUDE_OWN: ${{ inputs.exclude_own }}

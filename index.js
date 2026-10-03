@@ -16,6 +16,9 @@ async function main() {
   const output = (process.env.INPUT_OUTPUT || "card.svg").trim();
   const count = Math.max(1, Math.min(10, parseInt(process.env.INPUT_COUNT || "5", 10) || 5));
   const requestedTheme = (process.env.INPUT_THEME || "catppuccin").trim();
+  const excludeOwn = ["true", "1", "yes"].includes(
+    (process.env.INPUT_EXCLUDE_OWN || "").trim().toLowerCase(),
+  );
 
   if (!username) {
     console.error("Error: no username provided and GITHUB_REPOSITORY_OWNER is not set.");
@@ -31,7 +34,7 @@ async function main() {
 
   const [totalContributions, repos] = await Promise.all([
     fetchAllTimeContributions(token, username),
-    fetchTopRepos(token, username, count),
+    fetchTopRepos(token, username, count, { excludeOwn }),
   ]);
 
   const svg = renderCard({ totalContributions, repos, themeName });

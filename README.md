@@ -73,6 +73,7 @@ so there is no third-party server involved — you fully self-host it on GitHub 
 | `output`    | Path to write the generated SVG.                                         | `card.svg`           |
 | `count`     | Number of top repositories to list (1–10).                               | `5`                  |
 | `theme`     | Card theme: `catppuccin`, `tokyo-night`, or `github-dark`.               | `catppuccin`         |
+| `exclude_own` | Exclude repositories owned by `username` from the table.              | `false`              |
 
 ## How it works
 
