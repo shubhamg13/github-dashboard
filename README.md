@@ -42,7 +42,7 @@ so there is no third-party server involved — you fully self-host it on GitHub 
          - uses: actions/checkout@v4
 
          - name: Generate dashboard card
-           uses: shubhamg13/github-dashboard@main
+            uses: shubhamg13/github-dashboard@v1
            with:
              username: yourname # omit to default to the repository owner
 
